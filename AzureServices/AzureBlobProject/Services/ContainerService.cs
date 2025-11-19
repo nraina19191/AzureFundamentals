@@ -28,7 +28,7 @@ namespace AzureBlobProject.Services
             List<string> containers = new();
 
             await foreach (var containerItem in _blobClient.GetBlobContainersAsync()) { 
-
+                containers.Add(containerItem.Name);
             }
 
             return containers;
