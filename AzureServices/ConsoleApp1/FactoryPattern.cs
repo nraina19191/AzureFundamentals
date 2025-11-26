@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    interface IPayment {
+    // Product inteface
+    public interface IPayment {
         void PaymentProcess();
     }
 
-    class CreditCardPayment : IPayment
+
+    // Concrete product
+    public class CreditCardPayment : IPayment
     {
         public void PaymentProcess()
         {
@@ -18,11 +21,42 @@ namespace ConsoleApp1
         }
     }
 
-    class PayPalPayment : IPayment
+    // Concrete product
+    public class PayPalPayment : IPayment
     {
         public void PaymentProcess()
         {
             Console.WriteLine("Paypal");
+        }
+    }
+
+    // Creator
+    public abstract class MPaymentProcessor
+    {
+        // Factory
+        public abstract IPayment CreatePaymentMethod();
+
+        public void ProcessPayment(decimal amount) {
+            var payment = CreatePaymentMethod();
+            payment.PaymentProcess();
+        }
+    }
+
+    //  Concrete creators - Credit card factory
+    public class CreditCardPaymentProcessor : MPaymentProcessor
+    {
+        public override IPayment CreatePaymentMethod()
+        {
+            return new CreditCardPayment();
+        }
+    }
+
+    //  Concrete creators - Paypal factory
+    public class PayPalPaymentProcessor : MPaymentProcessor
+    {
+        public override IPayment CreatePaymentMethod()
+        {
+            return new PayPalPayment();
         }
     }
 

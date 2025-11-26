@@ -1,0 +1,24 @@
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace WebApplication1.Models
+{
+    public class HRMSContext : DbContext
+    {
+        public DbSet<Employee> Employees { get; set; }
+
+        public DbSet<Department> Departments { get; set; }
+
+        public HRMSContext(DbContextOptions<HRMSContext> options) : base(options)
+        {
+            
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Employee>()
+                .HasOne<Department>(x => x.Department)
+                .WithMany(x => x.Employees)
+                .HasForeignKey(x => x.DepartmentId);
+        }
+    }
+}

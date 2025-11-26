@@ -4,9 +4,13 @@
     {
         static void Main(string[] args)
         {
-            // Factory pattern
+            // Simple Factory pattern
             var creditPayment = FactoryPattern.GetPayment("credit");
             var paypalPayment = FactoryPattern.GetPayment("paypal");
+
+            // Factory Pattern
+            MPaymentProcessor paymentProcessor = new CreditCardPaymentProcessor();
+            paymentProcessor.ProcessPayment(1.1M);
 
             // DI pattern
             var payment = new PaymentProcessor(creditPayment);
