@@ -8,6 +8,8 @@ namespace WebApplication1.Models
 
         public DbSet<Department> Departments { get; set; }
 
+        public DbSet<Product> Products { get; set; }
+
         public HRMSContext(DbContextOptions<HRMSContext> options) : base(options)
         {
             

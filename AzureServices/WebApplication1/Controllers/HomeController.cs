@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
 using WebApplication1.Models;
+using WebApplication1.RepositryPattern;
 
 namespace WebApplication1.Controllers
 {
@@ -12,11 +13,13 @@ namespace WebApplication1.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly HRMSContext context;
+        private readonly ProductService _productService;
 
-        public HomeController(ILogger<HomeController> logger, HRMSContext context)
+        public HomeController(ILogger<HomeController> logger, HRMSContext context, ProductService productService)
         {
             _logger = logger;
             this.context = context;
+            this._productService = productService;
         }
 
         [Authorize]
@@ -66,6 +69,23 @@ namespace WebApplication1.Controllers
 
         public IActionResult Forbidden() {
             return View();
+        }
+
+        [Authorize]
+        public Task AddProduct() {
+            string pid = Guid.NewGuid().ToString();
+            return _productService.AddProduct(new Product { 
+                Name = pid,
+                Description = "Test",
+                Price = 154M,
+                SKU = pid
+            });
+        }
+
+        [Authorize]
+        public async Task<IActionResult> GetAllProducts()
+        {
+            return Ok(await _productService.GetAllProducts());
         }
 
         [Authorize(Roles = "customer")]
