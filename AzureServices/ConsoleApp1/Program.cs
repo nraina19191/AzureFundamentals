@@ -34,6 +34,7 @@
             repo1.CommitData("checkin code");
             repo2.CommitData("checkin code");
 
+            SingletonPattern.GetInstance().ShowMessage();
 
             Console.ReadLine();
         }

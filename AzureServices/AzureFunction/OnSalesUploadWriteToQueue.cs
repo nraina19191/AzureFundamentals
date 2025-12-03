@@ -17,7 +17,7 @@ namespace AzureFunction
         }
 
         [Function("OnSalesUploadWriteToQueue")]
-        [QueueOutput("salesDataBound", Connection = "AzureWebJobsStorage")]
+        [QueueOutput("SalesRequestInBound", Connection = "AzureWebJobsStorage")]
         public async Task<SalesRequest> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
         {
             string requestData = await new StreamReader(req.Body).ReadToEndAsync();

@@ -22,6 +22,7 @@ namespace WebApplication2.Controllers
         [Authorize]
         [Route("employee")]
         [HttpGet]
+        [Filters.RoleAuthFilter]
         public IActionResult GetEmployees()
         {
             return Ok(new

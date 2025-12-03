@@ -33,6 +33,8 @@ namespace WebApplication2
                 };
             });
 
+            builder.Services.AddScoped<Filters.RoleAuthFilter>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
