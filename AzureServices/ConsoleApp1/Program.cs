@@ -48,6 +48,7 @@
             // template data design pattern
             TemplateDesignPattern templateDesign = new UserReport();
             templateDesign.GenerateReport();
+            SingletonPattern.GetInstance().ShowMessage();
 
             // strategy pattern
             var order = new Order(new SqlStore());
