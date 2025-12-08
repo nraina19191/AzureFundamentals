@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using WebApplication1.DomainModels;
 using WebApplication1.Models;
 using WebApplication1.RepositoryPattern;
 using WebApplication1.RepositryPattern;
@@ -22,6 +23,8 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("AppSettings"));
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -40,6 +43,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+app.MapHealthChecks("/health");
 
 app.MapControllerRoute(
     name: "default",

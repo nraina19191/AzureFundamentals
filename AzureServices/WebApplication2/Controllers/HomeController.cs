@@ -14,9 +14,12 @@ namespace WebApplication2.Controllers
     public class HomeController : ControllerBase
     {
         IConfiguration _config;
-        public HomeController(IConfiguration config)
+        IHttpClientFactory _httpClientFactory;
+
+        public HomeController(IConfiguration config, IHttpClientFactory httpClientFactory)
         {
             this._config = config;
+            this._httpClientFactory = httpClientFactory; ;
         }
 
         [Authorize]
@@ -29,6 +32,14 @@ namespace WebApplication2.Controllers
                 Id = 1,
                 Name = User.Identity?.Name
             });
+        }
+
+        [Route("posts")]
+        public async Task<IActionResult> GetPosts() {
+            var client = this._httpClientFactory.CreateClient();
+            var posts = await client.GetAsync("https://jsonplaceholder.typicode.com/posts");
+
+            return Ok(posts.Content.ReadAsStringAsync());
         }
 
         [Route("login")]

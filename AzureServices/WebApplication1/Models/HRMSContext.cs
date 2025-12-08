@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebApplication1.Models.Mappings;
 
 namespace WebApplication1.Models
 {
@@ -21,6 +22,8 @@ namespace WebApplication1.Models
                 .HasOne<Department>(x => x.Department)
                 .WithMany(x => x.Employees)
                 .HasForeignKey(x => x.DepartmentId);
+                
+            modelBuilder.ApplyConfiguration(new EmployeeMap());
         }
     }
 }

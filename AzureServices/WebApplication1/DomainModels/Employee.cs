@@ -1,19 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApplication1.Models
+namespace WebApplication1.DomainModels
 {
     public class Employee
     {
-        [Key]
         public int Id { get; set; }
 
         public string Name { get; set; }
 
         public int DepartmentId { get; set; }
 
-        public Guid Version { get; set; }
-
-        public Department Department { get; set; }
+        public string RowVersion { get; set; }
     }
 }
