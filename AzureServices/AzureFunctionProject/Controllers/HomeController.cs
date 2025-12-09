@@ -36,7 +36,7 @@ namespace AzureFunctionProject.Controllers
             string returnValue = await result.Content.ReadAsStringAsync();
 
             if (file != null) {
-                var fileName = salesRequest.Id + Path.GetExtension(file.FileName);
+                var fileName = file.FileName;
                 BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient("functionsalesrep");
                 var bloblClient = containerClient.GetBlobClient(fileName);
 
